@@ -1,0 +1,90 @@
+local allHum = {}
+local BowGenus = "Classic Bow"
+local desc = ""
+local BowRare = ""
+local BowMeshId = ""
+local BowTextureId = ""
+
+local BowRareTable = {
+   "Usual",
+   "Rare",
+   "Super Rare",
+   "Epic",
+   "Mythic",
+   "Legendary",
+   "Divine",
+   "Exclusive"
+}
+
+local BowGenusTable = {
+    "Classic Bow",
+    "Executioner Bow",
+    "Zombie Bow",
+    "Void Bow"
+}
+
+local stats = {
+   hp = 1000,
+   damage = 30,
+   magic_damage = 0,
+   armor = 50,
+   magic_armor = 100,
+   move_before_attack = 1
+}
+
+game.Players.LocalPlayer.Character.Humanoid.MaxHealth = stats["hp"]
+
+Bow = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+Bow.Name = BowGenus
+
+local function ForClassicBow()
+  print("Classic Function")
+end
+
+local function ForZombieBow()
+   print("Zombie Function")
+end
+
+local function ForExecutionerBow()
+   print("Executioner Function")
+end
+
+local function ForVoidBow()
+   print("Void Function")
+end
+
+if BowGenus == "Classic Bow" then
+ BowRare = BowRareTable[1]
+ desc = "This is the most common bow"
+elseif BowGenus == "Zombie Bow" then
+ BowRare = BowRareTable[2]
+ desc = "This bow was stolen from a zombie archer, more powerful than a normal bow"
+elseif BowGenus == "Executioner Bow" then
+ BowRare = BowRareTable[3]
+ desc = "I don't understand why the executioner has a bow"
+elseif BowGenus == "Void Bow" then
+ BowRare = BowRareTable[5]
+ desc = "Super space squad bow"
+end
+
+Bow.ToolTip = tostring(BowRare) .. " rarity, " .. tostring(desc)
+
+BowHandle = Instance.new("Part", Bow)
+BowHandle.Name = "Handle"
+BowHandle.Locked = true
+
+BowMesh = Instance.new("SpecialMesh", BowHandle)
+BowMesh.MeshId = BowMeshId
+BowMesh.TextureId = BowTextureId
+
+Bow.Activated:Connect(function()
+ if BowGenus == "Classic Bow" then
+ForClassicBow()
+ elseif BowGenus == "Zombie Bow" then
+ForZombieBow()
+ elseif BowGenus == "Executioner Bow" then
+ForExecutionerBow()
+ elseif BowGenus == "Void Bow" then
+ForVoidBow()
+ end
+end)
